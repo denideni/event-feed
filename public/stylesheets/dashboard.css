@@ -1,0 +1,24 @@
+.user-container {
+  margin-top: 2rem;
+}
+
+.genre-buttons {
+  margin: 10px 0;
+  width: 125px;
+  height: 36px;
+  border: none;
+  padding: 2px 16px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  outline: none;
+}
+
+.genre-buttons {
+  background: #bd54a4;
+  color: #fff;
+  cursor: pointer;
+}
+
+.genre-buttons:hover {
+  background: #c561ae;
+}
