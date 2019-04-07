@@ -43,6 +43,10 @@ router.get('/map', function (req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'map.html'));
 })
 
+router.get('/event', function (req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'event.html'));
+})
+
 // router.get('/reference', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
 // });
