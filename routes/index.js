@@ -39,6 +39,10 @@ router.get('/register', function (req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'register.html'));
 });
 
+router.get('/map', function (req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'map.html'));
+})
+
 // router.get('/reference', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
 // });
