@@ -24,47 +24,15 @@
         <a class="nav-item nav-link active" href="/dashboard">Dashboard</a>
         <a class="nav-item nav-link" href='/map'>Map</a>
         <a class="nav-item nav-link" href='/event'>Events</a>
-        <a class="nav-item nav-link" href='/posters'>Posters</a>
-        <a class="nav-item nav-link" href="/reference">Reference</a>
+        <!-- <a class="nav-item nav-link" href='/posters'>Posters</a>
+        <a class="nav-item nav-link" href="/reference">Reference</a> -->
       </div>
     </div>
   </nav>
 
   <!-- User Content -->
-  <div class="container user-container" ng-init='getUsers()' ng-controller="getUserController">
-    <div class="jumbotron">
-      <div class="h5">Users</div>
-      <!-- Display the users -->
-      <div ng-repeat='field in users' id='usernames'>
-
-        {{field.username}}
-      </div>
-    </div>
-  </div>
 
   <!-- User Content  -->
-  <div class="container movie-container" ng-init='getGenres()' ng-controller="getGenresController">
-    <div class="jumbotron">
-      <div class="h5">Top Movies</div>
-      <!-- Display the Genres -->
-      <div ng-repeat='field in genres' id='genres' ng-controller="getGenreTopMoviesController">
-        <button type="button" class="genre-buttons" name="Genre" ng-click='getMoviesUnderGenre(field.genre)' ng-model='field.genre'>
-          {{field.genre}}
-        </button>
-        <div>
-          <table style="width:100%">
-            <tr ng-repeat="field in top10Movies" id='top10Movies'>
-              <td>{{field.title}}</td>
-              <td>{{field.rating}}</td>
-              <td>{{field.vote_count}}</td>
-            </tr>
-          </table>
-        </div>
-        <!--<button type="button" class="login-button" name="Login" ng-click="verifyLogin()">Login</button>-->
-      </div>
-      <!-- Display top 10 movies when a genre is clicked -->
-    </div>
-  </div>
 
   <!-- Include these before the end of body tag in every HTML file -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
