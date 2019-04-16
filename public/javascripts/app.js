@@ -53,6 +53,48 @@ app.controller('registerController', function($scope, $http) {
   }
 })
 
+app.controller('getPostsController', function($scope, $http) {
+  console.log('here in posts controlller')
+  $scope.getPosts = function () {
+    console.log("get posts")
+    var request = $http({
+      url: '/getPosts',
+      method: 'GET'
+    })
+
+    request.success(function (response) {
+      console.log(response)
+      $scope.posts = response;
+    });
+    request.error(function (err) {
+      console.log('error: ' + err);
+    })
+  }
+})
+
+app.controller('addPostController', function($scope, $http) {
+  console.log('HERE in addpostcontroller')
+  $scope.addPost = function() {
+    var request = $http({
+      url: '/addPost',
+      method: 'POST',
+      data: {
+        'text': $scope.post
+      }
+    })
+    request.success(function (response) {
+      console.log(response);
+      if (response.status === "OK") {
+        window.location.href = "http://localhost:8081/dashboard"
+      }
+    });
+    request.error(function (err) {
+      // failed
+      console.log("error: ", err);
+    });
+  }
+})
+
 // app.controller('getUserController', function ($scope, $http) {
 //   // Angular function
 //   console.log("HERE in controller");

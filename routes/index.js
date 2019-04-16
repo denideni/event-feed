@@ -2,17 +2,13 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var User = require('../models/user.js')
+var Post = require('../models/post.js')
 
 
 // // Connect string to MySQL
 // var mysql = require('mysql');
 
-// var connection = mysql.createConnection({
-//   host: 'fling.seas.upenn.edu',
-//   user: 'kecikde',
-//   password: 'Food&freizeitmoeglichkeiten',
-//   database: 'kecikde'
-// });
+
 
 // connection.connect(function (err) {
 //   if (err) {
@@ -33,6 +29,7 @@ router.get('/login', function (req, res) {
 
 router.get('/dashboard', function (req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'dashboard.html'));
+
 });
 
 router.get('/register', function (req, res) {
@@ -96,13 +93,46 @@ router.post('/login', function (req, res) {
     var { username, password } = req.body
     // var query = new User({ username, name, password })
     User.find({ username, password }, function (err, results) {
-      if (!err) {
+      // if (!err) {
+      //   res.json({results, status: 'OK'})
+      // } else {
+      //   next(err)
+      // }
+      if (!err && results != null) {
+        req.session.user = username;
         res.json({results, status: 'OK'})
       } else {
-        next(err)
+        next(new Error('invalid credentials'))
       }
     })
   }
+})
+
+router.get('/getPosts', function (req, res, next) {
+  console.log("in router")
+  var postQuery = Post.find({}, function (err, results) {
+      if (!err) {
+          console.log(results)
+          res.json(results)
+      } else {
+          next(err)
+      }
+  })
+})
+
+router.post('/addPost', function (req, res, next) {
+  console.log("IN ADD POST IN ROUTER")
+  console.log(req.body)
+  var { text } = req.body                 // ES6 shorthand
+  console.log(text);
+  console.log(req.session);
+  var author = req.session.user
+  
+  var q = new Post({ postText: text, author }) // ES6 shorthand
+  q.save(function (err, result) {
+      if (err) next(err)
+      res.json({ status: 'OK' })
+  })
 })
 
 // // Dashboard uses GET request for users

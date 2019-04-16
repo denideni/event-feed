@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var cookieSession = require('cookie-session');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -14,6 +15,11 @@ var index = require('./routes/index');
 var app = express();
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/finalproject')
 
+app.use(cookieSession({
+  name: 'local-session',
+  keys: ['spooky'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,8 +56,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen('8083', function() {
-  console.log('Server running on port 8083');
+app.listen('8081', function() {
+  console.log('Server running on port 8081');
 });
 
 module.exports = app;

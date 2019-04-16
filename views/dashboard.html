@@ -30,7 +30,17 @@
     </div>
   </nav>
 
+  <div class="container login-container" ng-controller="addPostController">
+    <textarea class="input username" placeholder="Post" ng-model="post"></textarea>
+    <button type="button" class="submit-button" name="Submit" ng-click="addPost()">Submit</button>
+  </div>
+
   <!-- User Content -->
+  <div ng-controller="getPostsController" ng-init='getPosts()'>
+    <ul id="posts" ng-repeat="p in posts">
+      <li>{{p.postText}}</li>
+    </ul>
+  </div>
 
   <!-- User Content  -->
 
