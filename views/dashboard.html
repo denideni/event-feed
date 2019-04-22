@@ -31,14 +31,28 @@
   </nav>
 
   <div class="container login-container" ng-controller="addPostController">
-    <textarea class="input username" placeholder="Post" ng-model="post"></textarea>
-    <button type="button" class="submit-button" name="Submit" ng-click="addPost()">Submit</button>
+    <div class="jumbotron">
+      <textarea class="input username" placeholder="Talk about events you're hosting/attending!" ng-model="post"></textarea>
+      <button type="button" class="submit-button" name="Submit" ng-click="addPost()">Submit</button>
+    </div>
   </div>
 
   <!-- User Content -->
   <div ng-controller="getPostsController" ng-init='getPosts()'>
     <ul id="posts" ng-repeat="p in posts">
-      <li>{{p.postText}}</li>
+      <div class="jumbotron" ng-if="p.postText != null">
+        <li>
+          <div>{{p.postText}}</div>
+          <div class="subtitle">
+            <div ng-if="p.author != null">
+              posted by: {{p.author}}
+            </div>
+            <div ng-if="p.createdAt != null">
+              on: {{p.createdAt}}
+            </div>
+          </div>
+        </li>
+      </div>
     </ul>
   </div>
 

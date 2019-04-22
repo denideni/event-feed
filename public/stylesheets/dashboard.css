@@ -1,4 +1,4 @@
-.user-container {
+.login-container {
   margin-top: 2rem;
 }
 
@@ -21,4 +21,13 @@
 
 .genre-buttons:hover {
   background: #c561ae;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.subtitle {
+  font-size: 75%;
+  text-align: right;
 }
