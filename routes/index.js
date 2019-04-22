@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var User = require('../models/user.js')
 var Post = require('../models/post.js')
+var Comment = require('../models/comment.js')
 
 
 // // Connect string to MySQL
@@ -132,6 +133,33 @@ router.post('/addPost', function (req, res, next) {
   q.save(function (err, result) {
       if (err) next(err)
       res.json({ status: 'OK' })
+  })
+})
+
+router.post('/addComment', function (req, res, next) {
+  console.log("IN ADD COMMENT IN ROUTER")
+  console.log(req.body)
+  var { text } = req.body                 // ES6 shorthand
+  console.log(text);
+  console.log(req.session);
+  var author = req.session.user
+  
+  var q = new Comment({ commentText: text, author }) // ES6 shorthand
+  q.save(function (err, result) {
+      if (err) next(err)
+      res.json({ status: 'OK' })
+  })
+})
+
+router.get('/getComments', function (req, res, next) {
+  console.log("in router")
+  var commentQuery = Comment.find({}, function (err, results) {
+      if (!err) {
+          console.log(results)
+          res.json(results)
+      } else {
+          next(err)
+      }
   })
 })
 

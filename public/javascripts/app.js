@@ -95,6 +95,48 @@ app.controller('addPostController', function($scope, $http) {
   }
 })
 
+app.controller('getCommentsController', function($scope, $http) {
+  console.log('here in comments controller')
+  $scope.getComments = function () {
+    console.log("get comments")
+    var request = $http({
+      url: '/getComments',
+      method: 'GET'
+    })
+
+    request.success(function (response) {
+      console.log(response)
+      $scope.comments = response;
+    });
+    request.error(function (err) {
+      console.log('error: ' + err);
+    })
+  }
+})
+
+app.controller('addCommentController', function($scope, $http) {
+  console.log('HERE in addCommentController')
+  $scope.addComment = function() {
+    var request = $http({
+      url: '/addComment',
+      method: 'POST',
+      data: {
+        'text': $scope.comment
+      }
+    })
+    request.success(function (response) {
+      console.log(response);
+      if (response.status === "OK") {
+        window.location.href = "http://localhost:8081/dashboard"
+      }
+    });
+    request.error(function (err) {
+      // failed
+      console.log("error: ", err);
+    });
+  }
+})
+
 // app.controller('getUserController', function ($scope, $http) {
 //   // Angular function
 //   console.log("HERE in controller");
