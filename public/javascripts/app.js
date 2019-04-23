@@ -117,11 +117,13 @@ app.controller('getCommentsController', function($scope, $http) {
 app.controller('addCommentController', function($scope, $http) {
   console.log('HERE in addCommentController')
   $scope.addComment = function() {
+    console.log($scope.postID)
     var request = $http({
       url: '/addComment',
       method: 'POST',
       data: {
-        'text': $scope.comment
+        'text': $scope.comment,
+        'id': $scope.postID
       }
     })
     request.success(function (response) {
@@ -134,6 +136,10 @@ app.controller('addCommentController', function($scope, $http) {
       // failed
       console.log("error: ", err);
     });
+  }
+  $scope.assignID = function(postID) {
+    $scope.postID = postID;
+    console.log(postID);
   }
 })
 

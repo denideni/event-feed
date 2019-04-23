@@ -51,13 +51,13 @@
               on: {{p.createdAt}}
             </div>
           </div>
-          <div ng-controller="addCommentController">
+          <div ng-controller="addCommentController" ng-init="assignID(p._id)">
+            <input type="hidden" name="postID" ng-model="postID"/>
             <textarea class="input username" placeholder="Comment!" ng-model="comment"></textarea>
             <button type="button" class="submit-button" name="Submit" ng-click="addComment()">Submit</button>
           </div>
           <div ng-controller="getCommentsController" ng-init="getComments()">
-              Comments will go here
-            <ul id="comments" ng-repeat="c in comments">
+            <ul id="comments" ng-repeat="c in p.comments">
               {{c.commentText}}
             </ul>
           </div>

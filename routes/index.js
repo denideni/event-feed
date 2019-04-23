@@ -111,7 +111,7 @@ router.post('/login', function (req, res) {
 
 router.get('/getPosts', function (req, res, next) {
   console.log("in router")
-  var postQuery = Post.find({}, function (err, results) {
+  var postQuery = Post.find({}).populate('comments').exec( function (err, results) {
       if (!err) {
           console.log(results)
           res.json(results)
@@ -139,7 +139,7 @@ router.post('/addPost', function (req, res, next) {
 router.post('/addComment', function (req, res, next) {
   console.log("IN ADD COMMENT IN ROUTER")
   console.log(req.body)
-  var { text } = req.body                 // ES6 shorthand
+  var { text, id } = req.body                 // ES6 shorthand
   console.log(text);
   console.log(req.session);
   var author = req.session.user
@@ -147,7 +147,18 @@ router.post('/addComment', function (req, res, next) {
   var q = new Comment({ commentText: text, author }) // ES6 shorthand
   q.save(function (err, result) {
       if (err) next(err)
-      res.json({ status: 'OK' })
+      Post.findOne({'_id':id}, function(err2, post) {
+        if (err2) {
+          next(err2)
+        } else {
+          console.log(post);
+          console.log(post.comments);
+          post.comments.push(q._id);
+          post.save();
+          res.json({ status: 'OK' })
+        }
+      })
+      
   })
 })
 
@@ -155,7 +166,7 @@ router.get('/getComments', function (req, res, next) {
   console.log("in router")
   var commentQuery = Comment.find({}, function (err, results) {
       if (!err) {
-          console.log(results)
+          // console.log(results)
           res.json(results)
       } else {
           next(err)
