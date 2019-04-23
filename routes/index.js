@@ -111,7 +111,7 @@ router.post('/login', function (req, res) {
 
 router.get('/getPosts', function (req, res, next) {
   console.log("in router")
-  var postQuery = Post.find({}).populate('comments').exec( function (err, results) {
+  var postQuery = Post.find({}).sort('-createdAt').populate('comments').exec( function (err, results) {
       if (!err) {
           console.log(results)
           res.json(results)

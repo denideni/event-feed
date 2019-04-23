@@ -42,23 +42,39 @@
     <ul id="posts" ng-repeat="p in posts">
       <div class="jumbotron" ng-if="p.postText != null">
         <li>
-          <div>{{p.postText}}</div>
-          <div class="subtitle">
-            <div ng-if="p.author != null">
-              posted by: {{p.author}}
-            </div>
-            <div ng-if="p.createdAt != null">
-              on: {{p.createdAt}}
+          <div class="card" style="margin-bottom: 1em; padding: 1em">
+            <div class="card-body">{{p.postText}}</div>
+            <div class="subtitle">
+              <div ng-if="p.author != null">
+                posted by: {{p.author}}
+              </div>
+              <div ng-if="p.createdAt != null">
+                on: {{p.createdAt}}
+              </div>
             </div>
           </div>
           <div ng-controller="addCommentController" ng-init="assignID(p._id)">
-            <input type="hidden" name="postID" ng-model="postID"/>
-            <textarea class="input username" placeholder="Comment!" ng-model="comment"></textarea>
+            <input type="hidden" name="postID" ng-model="postID" />
+            <textarea class="input username" placeholder="Comment!" ng-model="comment" rows="1"></textarea>
             <button type="button" class="submit-button" name="Submit" ng-click="addComment()">Submit</button>
           </div>
-          <div ng-controller="getCommentsController" ng-init="getComments()">
-            <ul id="comments" ng-repeat="c in p.comments">
-              {{c.commentText}}
+          <div ng-controller="getCommentsController" ng-init="getComments()" class="card" style="width: 50%">
+            <div class="card-header">
+              Comments
+            </div>
+            <ul class="list-group list-group-flush" id="comments" ng-repeat="c in p.comments">
+              <li class="list-group-item">
+                <div>{{c.commentText}}</div>
+                <div class="subtitle">
+                  <div ng-if="c.author != null">
+                    posted by: {{c.author}}
+                  </div>
+                  <div ng-if="c.createdAt != null">
+                    on: {{c.createdAt}}
+                  </div>
+                </div>
+
+              </li>
             </ul>
           </div>
         </li>

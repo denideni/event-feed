@@ -20,7 +20,7 @@ function showPosition(position) {
       dataType: "json",
       success: function(json) {
                   console.log(json);
-                  var e = document.getElementById("events");
+                  var e = document.getElementById("totalEvents");
                   e.innerHTML = json.page.totalElements + " events found.";
                   showEvents(json);
                   initMap(position, json);
@@ -52,7 +52,8 @@ function showError(error) {
 
 function showEvents(json) {
   for(var i=0; i<json.page.size; i++) {
-    $("#events").append("<p>"+json._embedded.events[i].name+"</p>");
+      
+    $("#events").append("<li class='list-group-item'>"+json._embedded.events[i].name+"</li>");
   }
 }
 
